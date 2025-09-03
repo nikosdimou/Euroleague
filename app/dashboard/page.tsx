@@ -4,6 +4,8 @@ import NewTeamPage from "./teams/page";
 import { Card, CardAction, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "lucide-react";
 import EmployeeForm from "./employee/page";
+import Navbar from "@/components/Navbar";
+import Header from "@/components/Header";
 
 export default async function DashboardPage() {
   // Fetch counts + lists
@@ -12,13 +14,21 @@ export default async function DashboardPage() {
     prisma.player.findMany({ include: { team: true } }),
     prisma.match.findMany(),
   ]);
+    const adminName = "Admin";
 
   const teamCount = teams.length;
   const playerCount = players.length;
   const matchCount = matches.length;
 
   return (
-     <div className="@container/main flex flex-1 flex-col gap-2">
+    
+    
+    
+    
+    <div className="@container/main flex flex-1 flex-col gap-2">
+    <div className="">
+      <Header adminName={adminName} />
+    </div>
     <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
       <Card className="@container/card">

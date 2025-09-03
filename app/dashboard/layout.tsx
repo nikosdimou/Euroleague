@@ -7,9 +7,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <h1 className="text-2xl font-bold">🏀 Basket Admin</h1>
         <nav className="space-y-3">
           <Link href="/dashboard" className="block hover:text-blue-400">Dashboard</Link>
-          <Link href="/dashboard/teams" className="block hover:text-blue-400">Teams</Link>
-          <Link href="/dashboard/players" className="block hover:text-blue-400">Players</Link>
-          <Link href="/dashboard/logout" className="block hover:text-blue-400">Logout</Link>
+          <Link href="/dashboard/teamss" className="block hover:text-blue-400">Teams</Link>
+          <Link href="/dashboard/playerss" className="block hover:text-blue-400">Players</Link>
+          <Link href="/dashboard/logout" className="block hover:text-blue-400"><button>Logout </button></Link>
           
         </nav>
       </aside>

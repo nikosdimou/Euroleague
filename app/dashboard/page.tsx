@@ -1,106 +1,71 @@
 import { prisma } from "@/lib/prisma";
-
-type Team = {
-  id: number;
-  name: string;
-  city: string | null;
-  image: string | null;
-};
-
-type PlayerWithTeam = {
-  id: number;
-  name: string;
-  position: string | null;
-  number: number | null;
-  image: string | null;
-  teamId: number | null;
-  teamName: string | null;
-  teamCity: string | null;
-  teamImage: string | null;
-};
+import NewPlayerPage from "./players/page";
+import NewTeamPage from "./teams/page";
+import { Card, CardAction, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "lucide-react";
 
 export default async function DashboardPage() {
-  // Fetch data directly from Prisma
-  const [teams, players] = await Promise.all([
+  // Fetch counts + lists
+  const [teams, players, matches] = await Promise.all([
     prisma.team.findMany(),
-    prisma.player.findMany({
-      include: {
-        team: true,
-      },
-    }),
+    prisma.player.findMany({ include: { team: true } }),
+    prisma.match.findMany(),
   ]);
 
-  // Map players into PlayerWithTeam shape
-  const playersWithTeam: PlayerWithTeam[] = players.map((p) => ({
-    id: p.id,
-    name: p.name,
-    position: p.position,
-    number: p.number,
-    image: p.image,
-    teamId: p.teamId,
-    teamName: p.team?.name ?? null,
-    teamCity: p.team?.city ?? null,
-    teamImage: p.team?.image ?? null,
-  }));
+  const teamCount = teams.length;
+  const playerCount = players.length;
+  const matchCount = matches.length;
 
   return (
-    <div className="p-6 space-y-12">
-      {/* Teams Section */}
-      <section>
-        <h1 className="text-2xl font-bold mb-6">Teams</h1>
-        <div className="grid grid-cols-3 gap-6">
-          {teams.map((team) => (
-            <div key={team.id} className="rounded-xl shadow p-4 bg-white">
-              {team.image && (
-                <img
-                  src={team.image}
-                  alt={team.name}
-                  className="w-full h-40 object-cover rounded-full mb-3"
-                />
-              )}
-              <h2 className="text-xl font-semibold">{team.name}</h2>
-              <p className="text-gray-600">{team.city}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Players Section */}
-      <section>
-        <h1 className="text-2xl font-bold mb-6">Players</h1>
-        <div className="grid grid-cols-4 gap-6">
-          {playersWithTeam.map((player) => (
-            <div key={player.id} className="rounded-xl shadow p-4 bg-white">
-              {player.image && (
-                <img
-                  src={player.image}
-                  alt={player.name}
-                  className="w-full h-[500px] object-cover rounded-lg mb-3"
-                />
-              )}
-              <h2 className="text-lg font-semibold">{player.name}</h2>
-              <p className="text-gray-600">{player.position}</p>
-              <p className="text-gray-500">#{player.number}</p>
-
-              {player.teamName && (
-                <div className="mt-3 flex items-center gap-2">
-                  {player.teamImage && (
-                    <img
-                      src={player.teamImage}
-                      alt={player.teamName}
-                      className="w-8 h-8 object-cover rounded-full"
-                    />
-                  )}
-                  <div>
-                    <p className="text-sm font-medium">{player.teamName}</p>
-                    <p className="text-xs text-gray-500">{player.teamCity}</p>
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
+     <div className="@container/main flex flex-1 flex-col gap-2">
+    <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+    <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
+      <Card className="@container/card">
+        <CardHeader>
+          <CardDescription>Players</CardDescription>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            {playerCount}
+          </CardTitle>
+          <CardAction>
+           
+              
+            
+          </CardAction>
+        </CardHeader>
+        
+      </Card>
+      <Card className="@container/card">
+        <CardHeader>
+          <CardDescription>Teams</CardDescription>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            {teamCount}
+          </CardTitle>
+          <CardAction>
+            
+          </CardAction>
+        </CardHeader>
+        
+      </Card>
+     
+       
+       
+      
     </div>
+     <div className="p-6 space-y-12">
+          <section>
+            <div className="grid grid-cols-3 gap-6">
+            <NewPlayerPage />
+            <NewTeamPage />
+            </div>
+          </section>
+        </div>
+
+     </div>
+     </div>
+
+    
+        
+     
+    
   );
 }

@@ -3,6 +3,7 @@ import NewPlayerPage from "./players/page";
 import NewTeamPage from "./teams/page";
 import { Card, CardAction, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "lucide-react";
+import EmployeeForm from "./employee/page";
 
 export default async function DashboardPage() {
   // Fetch counts + lists
@@ -46,22 +47,26 @@ export default async function DashboardPage() {
         </CardHeader>
         
       </Card>
-     
-       
+      
        
       
     </div>
-     <div className="p-6 space-y-12">
-          <section>
-            <div className="grid grid-cols-3 gap-6">
+     
+          <section >
+            <div className="grid grid-cols-3 gap-4">
             <NewPlayerPage />
+            
             <NewTeamPage />
+           
+              <EmployeeForm/>
+           
             </div>
           </section>
+          
         </div>
 
      </div>
-     </div>
+    
 
     
         

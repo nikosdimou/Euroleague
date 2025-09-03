@@ -9,6 +9,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <Link href="/dashboard" className="block hover:text-blue-400">Dashboard</Link>
           <Link href="/dashboard/teams" className="block hover:text-blue-400">Teams</Link>
           <Link href="/dashboard/players" className="block hover:text-blue-400">Players</Link>
+          <Link href="/dashboard/logout" className="block hover:text-blue-400">Logout</Link>
           
         </nav>
       </aside>

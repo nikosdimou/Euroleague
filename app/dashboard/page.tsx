@@ -55,7 +55,7 @@ export default async function DashboardPage() {
                 <img
                   src={team.image}
                   alt={team.name}
-                  className="w-full h-80 object-cover   mb-3"
+                  className="w-full h-40 object-cover rounded-full mb-3"
                 />
               )}
               <h2 className="text-xl font-semibold">{team.name}</h2>
@@ -75,11 +75,11 @@ export default async function DashboardPage() {
                 <img
                   src={player.image}
                   alt={player.name}
-                  className="w-full h-100 object-cover rounded-lg mb-3"
+                  className="w-full h-[500px] object-cover rounded-lg mb-3"
                 />
               )}
               <h2 className="text-lg font-semibold">{player.name}</h2>
-              <p className="text-gray-black">{player.position}</p>
+              <p className="text-gray-600">{player.position}</p>
               <p className="text-gray-500">#{player.number}</p>
 
               {player.teamName && (
@@ -88,7 +88,7 @@ export default async function DashboardPage() {
                     <img
                       src={player.teamImage}
                       alt={player.teamName}
-                      className="w-8 h-8 object-cover rounded-full "
+                      className="w-8 h-8 object-cover rounded-full"
                     />
                   )}
                   <div>

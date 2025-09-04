@@ -1,15 +1,13 @@
-import { PrismaClient } from "@/app/generated/prisma";
+import { PrismaClient } from "@prisma/client"; // ✅ use @prisma/client directly
 
 declare global {
-  // allow global `var` for prisma
-  // avoids TypeScript errors in dev
   var prisma: PrismaClient | undefined;
 }
 
 export const prisma =
   global.prisma ||
   new PrismaClient({
-    log: ["query"], // remove this line if you don’t want query logs
+    log: ["query"], // optional: logs SQL queries
   });
 
 if (process.env.NODE_ENV !== "production") global.prisma = prisma;

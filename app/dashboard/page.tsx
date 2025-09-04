@@ -9,16 +9,22 @@ import Header from "@/components/Header";
 
 export default async function DashboardPage() {
   // Fetch counts + lists
-  const [teams, players, matches] = await Promise.all([
+  const [teams, players, matches, employee] = await Promise.all([
     prisma.team.findMany(),
     prisma.player.findMany({ include: { team: true } }),
     prisma.match.findMany(),
+    prisma.employee.findMany()
+    
+    
+   
   ]);
     const adminName = "Admin";
 
   const teamCount = teams.length;
   const playerCount = players.length;
   const matchCount = matches.length;
+  const employeeCount = employee.length;
+  
 
   return (
     
@@ -57,21 +63,55 @@ export default async function DashboardPage() {
         </CardHeader>
         
       </Card>
-      
+       <Card className="@container/card">
+        <CardHeader>
+          <CardDescription>Employees</CardDescription>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+           {employeeCount}
+          </CardTitle>
+          <CardAction>
+            
+          </CardAction>
+        </CardHeader>
+        
+      </Card>
        
       
     </div>
      
-          <section >
-            <div className="grid grid-cols-3 gap-4">
-            <NewPlayerPage />
-            
-            <NewTeamPage />
-           
-              <EmployeeForm/>
-           
-            </div>
-          </section>
+  <div className="p-6 space-y-12">
+  {/* Stat Cards */}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {/* ... your stat cards ... */}
+  </div>
+
+  {/* Forms Section */}
+  <section>
+    <h2 className="text-2xl font-bold mb-6">Add Data</h2>
+
+    {/* Forms in 3-column grid */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Add Team Form */}
+      <div className="bg-white p-6 rounded-xl shadow">
+        <h3 className="text-lg font-semibold mb-4">Add Team</h3>
+        <NewTeamPage/>
+      </div>
+
+      {/* Add Player Form */}
+      <div className="bg-white p-6 rounded-xl shadow">
+        <h3 className="text-lg font-semibold mb-4">Add Player</h3>
+        <NewPlayerPage/>
+      </div>
+
+      {/* Add Employee Form */}
+      <div className="bg-white p-6 rounded-xl shadow">
+        <h3 className="text-lg font-semibold ">Add Employee</h3>
+        <EmployeeForm/>
+      </div>
+    </div>
+  </section>
+</div>
+
           
         </div>
 
